@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+	<title>Inicio KidsUniverse</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<link rel="stylesheet" href="assets/css/main.css" />
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Bubblegum+Sans&display=swap" rel="stylesheet">
+	<noscript>
+		<link rel="stylesheet" href="assets/css/noscript.css" />
+	</noscript>
+
+	<style>
+		body {
+			background-image: url("images/background_start.png");
+			background-size: auto;
+			font-family: 'Bubblegum Sans', cursive;
+		}
+
+		#fullBody {
+			background-color: rgba(240, 248, 255, 0.945);
+			margin-top: 15vh;
+			margin-left: 3vh;
+			margin-right: 3vh;
+			border-radius: 25px;
+			height: 45vh;
+		}
+
+		#bv {
+			font-size: 300%;
+		}
+
+		#texto {
+			font-size: 120%;
+		}
+	</style>
+
+</head>
+
+<body>
+	<!-- Logo -->
+	<div>
+		<img id="logo" src="images/logo.png" alt="">
+	</div>
+	<!-- Texto -->
+	<div id="fullBody">
+		<div>
+			<h1 id="bv">
+				Bem Vindo!
+			</h1>
+			<p id="texto">
+				Inscreve-te para usufruíres de toda a experiência!
+			</p>
+		</div>
+		<!-- Botões -->
+		<div>
+			<ul class="actions">
+				<li><a href="registro.html" class="button primary" id="botaoI">Inscrever</a></li>
+				<li><a href="entrar.html" class="button primary" id="botaoE">Entrar</a></li>
+				<!--<li><a class="button primary" id="botaoFace" onclick="faceId()">Entrar com foto</a></li>-->
+			</ul>
+		</div>
+	</div>
+	<!-- Scripts -->
+	<script src="assets/js/jquery.min.js"></script>
+	<script src="assets/js/jquery.scrollex.min.js"></script>
+	<script src="assets/js/jquery.scrolly.min.js"></script>
+	<script src="assets/js/browser.min.js"></script>
+	<script src="assets/js/breakpoints.min.js"></script>
+	<script src="assets/js/util.js"></script>
+	<script src="assets/js/main.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+	<style>
+		#botaoConfirm {
+			top: 0vh;
+			background-color: rgb(24, 144, 224);
+			color: white !important;
+			width: 80%;
+			line-height: 3.75em;
+		}
+
+		#botaoCancel {
+			top: 1vh;
+			background-color: rgb(92, 92, 92);
+			color: white !important;
+			width: 80%;
+			line-height: 3.75em;
+		}
+	</style>
+
+	<script>
+		// Abort operation because of user cancel
+		function cancel() {
+			document.location.href = "inicio.html";
+		}
+		// Confirm Email and Operate based on it
+		function confirm() {
+			var email_field = document.getElementById("email");
+			var email = email_field.value;
+			var atposition = email.indexOf("@");
+			var dotposition = email.lastIndexOf(".");
+			if (atposition < 1 || dotposition < atposition + 2 || dotposition + 2 >=
+				email.length || email == "" || email == " " || email == "  ") {
+				Swal.fire("Oops!", `Introduz um Email válido!`, "error").then(
+					(result) => {
+						faceId()
+					}
+				);
+			}
+			else {
+				document.location.href = "cam_screen.html";
+				localStorage.setItem("email", email);
+
+
+				/* FETCH DOS EMAILS AQUI
+					Verificar se E-mail introduzido existe na BD
+				*/
+
+
+
+
+			}
+		}
+
+		function faceId() {
+			Swal.fire({
+				title: 'Introduz o teu Email!',
+				html: `<input type="text" id="email" class="swal2-input" placeholder="Email">
+				<a class="button primary" id="botaoConfirm" onclick="confirm()">Entrar!</a></li>
+				<a class="button primary" id="botaoCancel" onclick="cancel()">Cancelar...</a></li>`,
+				focusConfirm: false,
+				showConfirmButton: false,
+				showCancelButton: false,
+			})
+		}
+
+
+
+	</script>
+
+</body>
+
+</html>

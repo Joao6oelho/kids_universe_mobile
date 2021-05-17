@@ -1,0 +1,221 @@
+<!doctype html>
+<html>
+
+
+<head>
+    <title>Atividades do Utilizador</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Bubblegum+Sans&display=swap" rel="stylesheet"> 
+    <noscript>
+        <link rel="stylesheet" href="assets/css/noscript.css" />
+    </noscript>
+
+    <style>
+        .fa-pencil-alt,
+        .fa-calendar-check,
+        .fa-user-circle,
+        .fa-list {
+            opacity: 0.7;
+        }
+
+        .hmmm {
+            text-align: center;
+        }
+
+        .actions {
+            text-align: center;
+        }
+
+        #descri {
+            position: relative;
+            margin-left: 50px;
+            top: 30px;
+            color: rgb(0, 0, 51);
+            font-size: 150%;
+        }
+
+        #textodescri {
+            position: relative;
+            margin-left: 50px;
+            top: 15px;
+            width: 75%;
+            border: none;
+            background-color: rgba(240, 248, 255, 0.938);
+            font-family: 'Bubblegum Sans', cursive;
+        }
+
+        #descrii {
+            position: relative;
+            margin-left: 50px;
+            top: 30px;
+            color: rgb(0, 0, 51);
+            font-size: 150%;
+        }
+
+        #espaco {
+            position: relative;
+            margin-left: 50px;
+            top: 13px;
+            width: 75%;
+            border: none;
+            background-color: rgba(240, 248, 255, 0.938);
+            font-family: 'Bubblegum Sans', cursive;
+        }
+
+        #descriii {
+            position: relative;
+            margin-left: 50px;
+            top: 28px;
+            color: rgb(0, 0, 51);
+            font-size: 150%;
+        }
+
+        #data {
+            position: relative;
+            margin-left: 50px;
+            top: 10px;
+            width: 75%;
+            border: none;
+            background-color: rgba(240, 248, 255, 0.938);
+            font-family: 'Bubblegum Sans', cursive;
+        }
+
+        #botaoP {
+            font-family: 'Bubblegum Sans', cursive;
+            background-color: rgb(24, 144, 224);
+            color: white !important;
+            width: 75%;
+            top: 2.5vh;
+        }
+
+        #botaoJ {
+            font-family: 'Bubblegum Sans', cursive;
+            background-color: rgba(49, 51, 53, 0.527);
+            color: white !important;
+            width: 75%;
+            top: 1vh;
+        }
+
+        #logoPerfil {
+            position: relative;
+            top: 10vh;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 65%;
+        }
+
+        .barra2 {
+            position: absolute;
+            top: 0px;
+            background: rgba(0, 1, 34, 0.959);
+            width: 100%;
+            color: white;
+            text-align: left;
+            padding: 10px;
+            padding-left: 15px;
+            font-weight: bold;
+            font-size: larger;
+            word-spacing: 15px;
+            letter-spacing: 7.5px;
+        }
+
+        body {
+            background-image: url("images/background_perfil_norm.png");
+            background-size: cover;
+            font-family: 'Bubblegum Sans', cursive;
+        }
+
+        #fullBody {
+            background-color: rgba(240, 248, 255, 0.938);
+            margin-top: 18vh;
+            margin-left: 2vh;
+            margin-right: 2vh;
+            border-radius: 25px;
+            height: 40vh;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id="teste">
+        <img id="logoPerfil" src="images/logoText.png" alt="">
+    </div>
+
+    <div id="fullBody">
+
+
+        <form class="">
+            <div class="form-row">
+                <label for="textodescri" id="descri">
+                    Descrição
+                </label>
+                <input id="textodescri">
+                </input>
+            </div>
+
+            <div class="form-row">
+                <label for="espaco" id="descrii">
+                    Espaço
+                </label>
+                <input id="espaco">
+                </input>
+            </div>
+            <div class="form-row">
+                <label for="data" id="descriii">
+                    Dia
+                </label>
+                <input id="data">
+                </input>
+            </div>
+        </form>
+
+        <div class="whitespace"></div>
+        <div class="whitespace"></div>
+    </div>
+    <div class="hmmm">
+        <ul class="actions">
+            <li><button type="button" class="button primary" id="botaoP">Participar</a></li>
+            <li><button type="button" class="button primary" id="botaoJ">Já estás inscrito</a></li>
+        </ul>
+    </div>
+
+    <div class="barra">
+        <div class="row">
+            <div class="col-3">
+                <p></p>
+                <a href="inscricoes.html"><i class="fas fa-pencil-alt fa-2x"></i></a>
+            </div>
+            <div class="col-3">
+                <p></p>
+                <a href="atividades.html"><i class="fas fa-list fa-2x"></i></a>
+            </div>
+            <div class="col-3">
+                <p></p>
+                <a href="participacoes.html"><i class="fas fa-calendar-check fa-2x"></i></a>
+
+            </div>
+            <div class="col-3">
+                <p></p>
+                <a href="perfil.html"><i class="fas fa-user-circle fa-2x"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <div class="barra2">
+        <a href="javascript:history.back()"><i class="fas fa-arrow-left"></i></a>
+        ATIVIDADE
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="assets/js/descricao.controller.js"></script>
+
+</body>
+
+
+</html>

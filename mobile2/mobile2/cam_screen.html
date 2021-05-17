@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+	<title>Inicio KidsUniverse</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<link rel="stylesheet" href="assets/css/main.css" />
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Bubblegum+Sans&display=swap" rel="stylesheet">
+	<noscript>
+		<link rel="stylesheet" href="assets/css/noscript.css" />
+	</noscript>
+
+	<style>
+		.mosaic {
+			display: grid;
+
+		}
+
+		.mosaic__item:first-of-type {
+			/*grid-column: 1 / span 2;*/
+			margin-left: auto;
+			grid-row: 2 / span 2;
+		}
+
+		.mosaic__item:last-of-type {
+			/*grid-column: 2 / span 2;*/
+			grid-row: 2 / span 2;
+		}
+
+		#logo {
+			top: 5vh;
+		}
+
+		body {
+			background-image: url("images/background_start.png");
+			background-size: auto;
+			font-family: 'Bubblegum Sans', cursive;
+		}
+
+		#fullBody {
+			background-color: rgba(240, 248, 255, 0.945);
+			margin-top: 15vh;
+			margin-left: 3vh;
+			margin-right: 3vh;
+			border-radius: 25px;
+			height: 45vh;
+		}
+
+		#bv {
+			font-size: 300%;
+		}
+
+		#texto {
+			font-size: 120%;
+		}
+
+		#camera {
+			border: 1px, solid, black;
+			margin-left: auto;
+			margin-right: auto;
+			margin-top: 5vh;
+			z-index: -5;
+		}
+
+		#results {
+			border: 1px, solid, black;
+			margin-left: 5vh;
+			margin-right: 2vh;
+			margin-top: 5vh;
+		}
+
+		#my-image {
+			display: none;
+		}
+
+		#my-image2 {
+			display: none;
+		}
+
+		#snap {
+			top: 0vh;
+			background-color: rgb(24, 144, 224);
+			color: white !important;
+			width: 80%;
+			text-align: center;
+			line-height: 3.75em;
+			margin-left: auto;
+			margin-right: auto;
+		}
+
+		#compare {
+			display: none;
+			top: 0vh;
+			background-color: rgb(24, 144, 224);
+			color: white !important;
+			width: 80%;
+			text-align: center;
+			line-height: 3.75em;
+			margin-left: auto;
+			margin-right: auto;
+		}
+
+		#home {
+			display: block;
+			top: 0vh;
+			background-color: rgb(255, 167, 2);
+			color: white !important;
+			width: 80%;
+			text-align: center;
+			line-height: 3.75em;
+			margin-left: auto;
+			margin-right: auto;
+		}
+	</style>
+
+</head>
+
+<body>
+	<!-- Logo -->
+	<div>
+		<img id="logo" src="images/logo.png" alt="">
+	</div>
+
+	<div class="container">
+		<div class="mosaic">
+			<div class="mosaic__item">
+				<div id="camera"></div>
+				<div id="results"></div>
+
+				<!--****************************** TESTING BASE 64 *****************************-->
+				<!--img id="results2" src="teste2.png"/>-->
+
+			</div>
+
+			<div class="mosaic__item">
+			</div>
+		</div>
+	</div>
+
+	<!-- Images to Compare -->
+	<div id="testeBase64"></div>
+	<img id="my-image" src="teste2.png" />
+	<img id="my-image2" src="teste2.jpeg" />
+
+	<div>
+		<ul class="actions">
+			<li><a class="button primary" id="snap" onclick="take_snapshot()">Tirar Fotografia</a></li>
+			<li><a class="button primary" id="compare" onclick="doit()">Entrar!</a></li>
+			<li><a href="inicio.html" class="button primary" id="home"><i class="fas fa-home"></i>Home</a>
+			</li>
+		</ul>
+	</div>
+
+	<!-- Scripts -->
+	<script src="assets/js/jquery.min.js"></script>
+	<script src="assets/js/jquery.scrollex.min.js"></script>
+	<script src="assets/js/jquery.scrolly.min.js"></script>
+	<script src="assets/js/browser.min.js"></script>
+	<script src="assets/js/breakpoints.min.js"></script>
+	<script src="assets/js/util.js"></script>
+	<script src="assets/js/main.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/webcamjs/1.0.26/webcam.min.js"></script>
+	<script src="assets/js/inicio.controller.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+	<script>
+		// Load Webcam
+		Webcam.set({
+			width: 220,
+			height: 220,
+			image_format: 'jpeg',
+			jpeg_quality: 90
+		})
+		Webcam.attach("#camera")
+
+		function take_snapshot() {
+			Webcam.snap(function (data_uri) {
+				document.getElementById("my-image2").src = data_uri;
+
+				var cam = document.getElementById("camera");
+				var results = document.getElementById("results");
+				var snap_but = document.getElementById("snap");
+				var compare_but = document.getElementById("compare");
+
+				snap_but.style.display = "none";
+				results.innerHTML += '<img src="' + data_uri + '" />';
+				cam.style.display = "none";
+				results.style.display = "block";
+				compare_but.style.display = "block";
+			})
+		}
+
+		function doit() {
+			// convert image to convas
+			var img = document.getElementById('my-image');
+			var canvas = document.createElement('canvas');
+			var img2 = document.getElementById('my-image2');
+			var canvas2 = document.createElement('canvas');
+			// Get canvas information
+			canvas.width = img.width;
+			canvas.height = img.height;
+			canvas.getContext('2d').drawImage(img, 0, 0, img.width, img.height);
+			canvas2.width = img2.width;
+			canvas2.height = img2.height;
+			canvas2.getContext('2d').drawImage(img2, 0, 0, img2.width, img2.height);
+			// Find the click pixel color information
+			var currentPixelData = canvas.getContext('2d').getImageData(event.offsetX, event.offsetY, 1, 1).data;
+			var currentPixelData2 = canvas2.getContext('2d').getImageData(event.offsetX, event.offsetY, 1, 1).data;
+
+
+
+
+			/* BASE 64 TEST */
+			// Convert to Base64
+			var test = canvas2.toDataURL('image/jpeg');
+			console.log(test);
+
+			// Não consigo comprimir imagem
+
+			// CONVERT BASE64 TO IMAGE 
+			var input_img_field = document.getElementById("testeBase64"); //**
+			input_img_field.style.display = "none"; //*
+			input_img_field.innerHTML += '<img id="input_img" src="' + test + '" />'; //***
+			/* Usar div vazia na qual será carregada, em Onload, via código acima, a imagem do BE 
+			   Essa imagem irá servir o papel da my_img que está a ser passada diretamente dos ficheiros locais
+			   Recapitulando: linha * apagar, ** e *** no início, com a var "test" a ser passada do BE */
+
+
+
+
+			// Start counting the occurance of the color in all pixels (Could take time)
+			setTimeout(function () {
+				colorCounter = 0;
+				totaltxt = "";
+				for (i = 0; i <= img.width; i++) {
+					for (j = 0; j <= img.height; j++) {
+						var PixelData = canvas.getContext('2d').getImageData(j, i, 1, 1).data;
+						if (JSON.stringify(PixelData) == JSON.stringify(currentPixelData)) { colorCounter += 1; }
+					}
+				}
+				colorCounter2 = 0;
+				for (i = 0; i <= img2.width; i++) {
+					for (j = 0; j <= img2.height; j++) {
+						var PixelData2 = canvas2.getContext('2d').getImageData(j, i, 1, 1).data;
+						if (JSON.stringify(PixelData) == JSON.stringify(currentPixelData2)) { colorCounter2 += 1; }
+					}
+				}
+				/*console.log("Chosed Color specification:" + "<br> R : " + currentPixelData[0] + "  G: " + currentPixelData[1] + " B: " + currentPixelData[2] +
+					" Alpha : " + currentPixelData[3] + "<br>Image size: " + img.width + "x" + img.height + "<br>Total Repeat: " + colorCounter +
+					"<br> Portion: " + colorCounter / (img.width * img.height) * 100 + "%")
+				console.log("Chosed Color specification:" + "<br> R : " + currentPixelData2[0] + "  G: " + currentPixelData2[1] + " B: " + currentPixelData2[2] +
+					" Alpha : " + currentPixelData2[3] + "<br>Image size: " + img2.width + "x" + img2.height + "<br>Total Repeat: " + colorCounter2 +
+					"<br> Portion: " + colorCounter2 / (img2.width * img2.height) * 100 + "%")*/
+			}, 200);
+
+			var r1 = currentPixelData[0];
+			var g1 = currentPixelData[1];
+			var b1 = currentPixelData[2];
+
+			var r2 = currentPixelData2[0];
+			var g2 = currentPixelData2[1];
+			var b2 = currentPixelData2[2];
+
+			if (r1 / r2 < 0.75 || r1 / r2 < 0.75 || b1 / b2 < 0.75
+				|| r2 / r1 < 0.75 || r2 / r1 < 0.75 || b2 / b1 < 0.75
+				|| img2.width / img.width < 9 / 10 || img2.height / img.height < 9 / 10
+				|| img2.width / img.width > 10 / 9 || img2.height / img.height > 10 / 9) {
+				console.log("Not Matching")
+				Swal.fire("Oops!", `Autenticação Falhada`, "error").then(
+					(result) => {
+						document.location.href = "cam_screen.html";
+					});
+			}
+			else {
+				console.log("Matching")
+				Swal.fire(
+					"Autenticação efetuada com sucesso!", "", "success"
+				).then(
+					(result) => {
+						document.location.href = "atividades.html";
+					});
+			}
+
+		}
+
+	</script>
+
+</body>
+
+</html>
