@@ -51,7 +51,8 @@ loginButton.addEventListener("click", function () {
       localStorage.setItem("birthdate", user.birthdate);
       localStorage.setItem("phone", user.phone_number);
       localStorage.setItem("username", user.username);
-      Swal.fire("Autenticação efetuada com sucesso!", "", "success").then(
+      localStorage.setItem("photo", user.photo);
+      Swal.fire("De seguida, efetue reconhecimento facial", "", "info").then(
         (result) => {
           document.location.href = "cam_screen.html";
         }

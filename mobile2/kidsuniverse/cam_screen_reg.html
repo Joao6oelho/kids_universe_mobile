@@ -148,7 +148,7 @@
 	<div>
 		<ul class="actions">
 			<li><a class="button primary" id="snap" onclick="take_snapshot()">Tirar Fotografia</a></li>
-			<li><a class="button primary" id="compare" onclick="doit()">Entrar!</a></li>
+			<li><a class="button primary" id="compare" onclick="doit()">Registar!</a></li>
 			<li><a href="inicio.html" class="button primary" id="home"><i class="fas fa-home"></i>Home</a>
 			</li>
 		</ul>
@@ -211,78 +211,50 @@
 			var currentPixelData2 = canvas2.getContext('2d').getImageData(event.offsetX, event.offsetY, 1, 1).data;
 
 
-
-
 			/* BASE 64 TEST */
 			// Convert to Base64
-			var test = canvas2.toDataURL('image/jpeg');
-			console.log(test);
-
-			// Não consigo comprimir imagem
-
-			// CONVERT BASE64 TO IMAGE 
-			var input_img_field = document.getElementById("testeBase64"); //**
-			input_img_field.style.display = "none"; //*
-			input_img_field.innerHTML += '<img id="input_img" src="' + test + '" />'; //***
-			/* Usar div vazia na qual será carregada, em Onload, via código acima, a imagem do BE 
-			   Essa imagem irá servir o papel da my_img que está a ser passada diretamente dos ficheiros locais
-			   Recapitulando: linha * apagar, ** e *** no início, com a var "test" a ser passada do BE */
+			var photo = canvas2.toDataURL('image/jpeg');
+			console.log(photo);
 
 
+			// Creating submission val
+			var userdata = {};
 
-
-			// Start counting the occurance of the color in all pixels (Could take time)
-			setTimeout(function () {
-				colorCounter = 0;
-				totaltxt = "";
-				for (i = 0; i <= img.width; i++) {
-					for (j = 0; j <= img.height; j++) {
-						var PixelData = canvas.getContext('2d').getImageData(j, i, 1, 1).data;
-						if (JSON.stringify(PixelData) == JSON.stringify(currentPixelData)) { colorCounter += 1; }
+			userdata.name = localStorage.getItem("name");
+			userdata.username = localStorage.getItem("username");
+			userdata.email = localStorage.getItem("email");
+			userdata.password = localStorage.getItem("password");
+			userdata.birthdate = localStorage.getItem("birthdate");
+			userdata.phone_number = "999999999";
+			userdata.profile = "child";
+			userdata.photo = photo;
+			localStorage.clear();
+			
+			// Post method
+			const options2 = {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify(userdata),
+			};
+			return fetch("https://kidsuniverse.herokuapp.com/auth/signup", options2)
+				.then(function (response) {
+					if (response.ok) {
+						Swal.fire("Inscrição efetuada com sucesso", "", "success").then(
+							(result) => {
+								localStorage.clear();
+								window.location = "entrar.html";
+							}
+						);
 					}
-				}
-				colorCounter2 = 0;
-				for (i = 0; i <= img2.width; i++) {
-					for (j = 0; j <= img2.height; j++) {
-						var PixelData2 = canvas2.getContext('2d').getImageData(j, i, 1, 1).data;
-						if (JSON.stringify(PixelData) == JSON.stringify(currentPixelData2)) { colorCounter2 += 1; }
+					else {
+						Swal.fire("Oops!", `Erro: Email já registado. Tente novamente.`, "error");
 					}
-				}
-				/*console.log("Chosed Color specification:" + "<br> R : " + currentPixelData[0] + "  G: " + currentPixelData[1] + " B: " + currentPixelData[2] +
-					" Alpha : " + currentPixelData[3] + "<br>Image size: " + img.width + "x" + img.height + "<br>Total Repeat: " + colorCounter +
-					"<br> Portion: " + colorCounter / (img.width * img.height) * 100 + "%")
-				console.log("Chosed Color specification:" + "<br> R : " + currentPixelData2[0] + "  G: " + currentPixelData2[1] + " B: " + currentPixelData2[2] +
-					" Alpha : " + currentPixelData2[3] + "<br>Image size: " + img2.width + "x" + img2.height + "<br>Total Repeat: " + colorCounter2 +
-					"<br> Portion: " + colorCounter2 / (img2.width * img2.height) * 100 + "%")*/
-			}, 200);
-
-			var r1 = currentPixelData[0];
-			var g1 = currentPixelData[1];
-			var b1 = currentPixelData[2];
-
-			var r2 = currentPixelData2[0];
-			var g2 = currentPixelData2[1];
-			var b2 = currentPixelData2[2];
-
-			if (r1 / r2 < 0.75 || r1 / r2 < 0.75 || b1 / b2 < 0.75
-				|| r2 / r1 < 0.75 || r2 / r1 < 0.75 || b2 / b1 < 0.75
-				|| img2.width / img.width < 9 / 10 || img2.height / img.height < 9 / 10
-				|| img2.width / img.width > 10 / 9 || img2.height / img.height > 10 / 9) {
-				console.log("Not Matching")
-				Swal.fire("Oops!", `Autenticação Falhada`, "error").then(
-					(result) => {
-						document.location.href = "cam_screen.html";
-					});
-			}
-			else {
-				console.log("Matching")
-				Swal.fire(
-					"Autenticação efetuada com sucesso!", "", "success"
-				).then(
-					(result) => {
-						document.location.href = "atividades.html";
-					});
-			}
+				})
+				.catch(function (err) {
+					Swal.fire("Oops!", `Erro:${err}. Tente novamente.`, "error");
+				});
 
 		}
 
