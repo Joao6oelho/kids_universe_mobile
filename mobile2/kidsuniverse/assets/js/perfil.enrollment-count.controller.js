@@ -77,6 +77,10 @@ window.onload = function () {
         count_field.innerHTML = participated;
         var user_field = document.getElementById("username");
         user_field.innerHTML = localStorage.getItem("username");
+
+        // Adding user photo
+        var photo = localStorage.getItem("photo");
+        document.getElementById("user").src = photo;
       });
   });
 };
